@@ -1,4 +1,3 @@
-# .github/workflows/deploy.yml
 name: Deploy to GitHub Pages
 
 on:
@@ -34,13 +33,17 @@ jobs:
       - name: Build
         run: |
           npm run build
-          # SPA fallback so refresh on nested routes works
+          # SPA fallback
           cp dist/index.html dist/404.html
+          echo "--- dist listing ---"
+          ls -la dist
+          echo "--- dist/index.html head ---"
+          head -n 20 dist/index.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist  # 👈 deploy built files only
+          path: ./dist
 
   deploy:
     environment:
