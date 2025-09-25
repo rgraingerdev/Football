@@ -1,8 +1,9 @@
+# .github/workflows/deploy.yml
 name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ] # or 'master' if that's your default
+    branches: [ main ]
   workflow_dispatch:
 
 permissions:
@@ -33,13 +34,13 @@ jobs:
       - name: Build
         run: |
           npm run build
-          # SPA fallback: copy index.html to 404.html so deep links work
+          # SPA fallback so refresh on nested routes works
           cp dist/index.html dist/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./dist  # 👈 deploy built files only
 
   deploy:
     environment:
