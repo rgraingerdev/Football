@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]   # change if your default branch is different
   workflow_dispatch:
 
 permissions:
@@ -33,12 +33,12 @@ jobs:
       - name: Build
         run: |
           npm run build
-          # SPA fallback
+          # SPA refresh support
           cp dist/index.html dist/404.html
           echo "--- dist listing ---"
           ls -la dist
-          echo "--- dist/index.html head ---"
-          head -n 20 dist/index.html
+          echo "--- first 15 lines of dist/index.html ---"
+          head -n 15 dist/index.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
